@@ -1,0 +1,18 @@
+{
+    "header": {
+        "siteName": "Astro Gastro Sabrosuras",
+        "home": "Inicio",
+        "snacks": "Aperitivos",
+        "dinner": "Cena",
+        "desserts": "Postres"
+    },
+    "homepage": {
+        "header": "Elige una receta"
+    },
+    "recipes": {
+        "prep": "Preparación",
+        "cook": "Cocción",
+        "difficulty": "Dificultad",
+        "ingredients": "Ingredientes"
+    }
+}

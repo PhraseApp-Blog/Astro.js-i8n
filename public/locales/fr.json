@@ -1,0 +1,18 @@
+{
+    "header": {
+        "siteName": "Astro Gastro Délices",
+        "home": "Accueil",
+        "snacks": "Snacks",
+        "dinner": "Dîner",
+        "desserts": "Desserts"
+    },
+    "homepage": {
+        "header": "Choisissez une recette"
+    },
+    "recipes": {
+        "prep": "Préparation",
+        "cook": "Cuisson",
+        "difficulty": "Difficulté",
+        "ingredients": "Ingrédients"
+    }
+}
