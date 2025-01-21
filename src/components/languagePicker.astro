@@ -1,0 +1,29 @@
+---
+import { getRelativeLocaleUrlList } from 'astro:i18n';
+
+const currentLocale = Astro.currentLocale;
+const currentPath = Astro.url.pathname;
+
+// Generate URLs for all locales
+const localeUrls = getRelativeLocaleUrlList(currentPath);
+---
+<select
+  id="language-picker"
+  class="bg-gray-100 text-gray-700 text-sm font-medium rounded-lg px-4 py-2 pr-8 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+  aria-label="Select language"
+>
+  {localeUrls.map((url) => {
+    const locale = url.split('/')[1] || 'en';
+    return (
+      <option
+        value={locale}
+        selected={currentLocale === locale}
+      >
+        {locale.toUpperCase()}
+      </option>
+    );
+  })}
+</select>
+
+<!-- Include the vanilla JavaScript file -->
+<script src="/js/languagePicker.js" defer></script>

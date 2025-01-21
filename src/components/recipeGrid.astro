@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import RecipeCard from "./recipeCard.astro";
+
+const { category, currentLocale } = Astro.props;
+
+// Get current locale from Astro, defaulting to 'en' if not set
+// This handles cases where the user visits a non-localized route
+const lang = Astro.currentLocale ?? "en";
+
+// Get and filter recipes collection
+const recipes = await getCollection("recipes", ({ id, data }) => {
+ // Check if recipe is in the current language directory
+ // The id includes the full path, e.g. "en/apple-crumble.md"
+ // so we check if it starts with the language code
+ const isCorrectLang = id.startsWith(`${lang}/`);
+
+ // Only apply category filter if one was provided via props
+ // This allows showing all recipes when no category is specified
+ const matchesCategory = !category || data.category === category;
+
+ // Recipe must match both language and category (if specified)
+ return isCorrectLang && matchesCategory;
+});
+
+---
+<section class="py-12 bg-gray-50">
+ <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+   {recipes.length === 0 ? (
+     <p class="text-center text-gray-500 text-lg">No recipes found.</p>
+   ) : (
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+       {recipes.map((recipe) => {
+         // Clean the slug once, removing the locale prefix
+         const cleanSlug = recipe.slug.replace(`${currentLocale}/`, '');
+         
+         return (
+           <RecipeCard
+             name={recipe.data.name}
+             description={recipe.data.description}
+             prepTime={recipe.data.prepTime}
+             cookTime={recipe.data.cookTime}
+             complexity={recipe.data.complexity}
+             slug={cleanSlug}
+             currentLocale={currentLocale}
+           />
+         );
+       })}
+     </div>
+   )}
+ </div>
+</section>

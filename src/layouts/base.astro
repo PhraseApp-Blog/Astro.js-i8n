@@ -1,0 +1,16 @@
+---
+import Header from '../components/header.astro';
+const currentLocale = Astro.currentLocale;
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Astro Gastro!</title>
+  </head>
+  <body>
+    <Header currentLocal={currentLocale} />
+    
+    <slot />
+  </body>
+</html>

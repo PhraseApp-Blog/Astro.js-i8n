@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/base.astro';
+import RecipeHeader from '../../../components/recipeHeader.astro';
+import IngredientsList from '../../../components/ingredientsList.astro';
+
+// This page will handle URLs like:
+// /en/recipes/apple-crumble
+// /es/recipes/crumble-de-manzana
+// /fr/recipes/crumble-aux-pommes
+export const prerender = true;
+export async function getStaticPaths() {
+  // Get all recipes across all languages
+  const allRecipes = await getCollection('recipes');
+
+  // For each recipe, create a route with the correct locale
+  return allRecipes.map((recipe) => {
+    // Get locale from the recipe's ID (e.g., "en/apple-crumble.md" -> "en")
+    const locale = recipe.id.split('/')[0];
+    
+    return {
+      params: {
+        locale,
+        // Remove the locale prefix from the slug
+        slug: recipe.slug.replace(`${locale}/`, '')
+      },
+      props: { recipe }
+    };
+  });
+}
+
+const { recipe } = Astro.props;
+const currentLocale = Astro.currentLocale;
+const { Content } = await recipe.render();
+---
+
+<BaseLayout currentLocale={currentLocale}>
+  <article class="max-w-5xl mx-auto px-4 py-12">
+    <RecipeHeader 
+      name={recipe.data.name}
+      description={recipe.data.description}
+      prepTime={recipe.data.prepTime}
+      cookTime={recipe.data.cookTime}
+      complexity={recipe.data.complexity}
+    />
+
+    <!-- Two column layout for ingredients and instructions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+      <aside class="md:col-span-1 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+          Ingredients
+        </h2>
+        <IngredientsList ingredients={recipe.data.ingredients} />
+      </aside>
+
+      <section class="md:col-span-2 prose prose-emerald dark:prose-invert max-w-none leading-relaxed">
+        <Content />
+      </section>
+    </div>
+  </article>
+</BaseLayout>

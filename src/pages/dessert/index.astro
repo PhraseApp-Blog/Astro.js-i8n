@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/base.astro';
+import RecipeGrid from '../../components/recipeGrid.astro';
+import ListingHeader from '../../components/listingHeader.astro';
+
+const currentLocale = Astro.currentLocale; // Get the current locale (e.g., 'en', 'es', 'fr')
+
+---
+
+<BaseLayout currentLocale={currentLocale}>
+    <ListingHeader category="dessert" />
+    <RecipeGrid currentLocale={currentLocale} category="Dessert" />
+</BaseLayout>

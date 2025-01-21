@@ -1,0 +1,76 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'; // Import the helper function for generating localized URLs
+
+// Destructure props passed to the RecipeCard component
+const {
+  name,
+  description = "A delicious recipe you'll love!",
+  prepTime,
+  cookTime,
+  complexity,
+  slug,
+  currentLocale,
+} = Astro.props;
+
+
+// Generate the localized URL for the recipe using the helper function
+const localizedLink = getRelativeLocaleUrl(currentLocale, `recipes/${slug}`);
+
+
+// Generate the image path based on the slug (assumes image filenames match recipe slugs)
+const image = `${slug}.webp`;
+---
+
+<article class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 w-full max-w-sm">
+  <!-- Use the localized link for the recipe card image -->
+  <a href={localizedLink} class="block aspect-video w-full overflow-hidden">
+    <img 
+      src={`/${image}`} 
+      alt={name} 
+      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+      loading="lazy" 
+    />
+  </a>
+
+  <div class="p-4">
+    <div class="flex items-start justify-between gap-2 mb-2">
+      <h3 class="text-lg font-semibold text-gray-900 leading-tight">
+        <!-- Use the localized link for the recipe title -->
+        <a href={localizedLink} class="hover:text-emerald-600 transition-colors">
+          {name}
+        </a>
+      </h3>
+      
+      <span class="text-xs font-medium px-2 py-1 rounded-full bg-gray-100 text-gray-600">
+        {complexity}
+      </span>
+    </div>
+
+    <div class="flex gap-4 text-sm text-gray-600 mb-3">
+      <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+        </svg>
+        Prep: {prepTime}
+      </span>
+      <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+        </svg>
+        Cook: {cookTime}
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-600 line-clamp-2 mb-4">
+      {description}
+    </p>
+
+    <!-- Use the localized link for the "View Recipe" button -->
+    <a 
+      href={localizedLink}
+      class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+    >
+      View Recipe
+    </a>
+  </div>
+</article>

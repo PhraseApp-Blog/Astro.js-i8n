@@ -1,0 +1,108 @@
+---
+import LanguagePicker from "./languagePicker.astro";
+const currentPath = Astro.url.pathname;
+const currentLocale = Astro.currentLocale;
+
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Snacks', href: '/snacks' },
+  { name: 'Dinner', href: '/dinner' },
+  { name: 'Dessert', href: '/dessert' },
+];
+---
+
+<header class="bg-white shadow-sm">
+  <nav class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex h-16 justify-between items-center">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <span class="text-xl font-semibold text-gray-900">
+          Astro Gastro Recipes
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex md:gap-8">
+        {navigation.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'inline-flex items-center px-1 py-2 text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors',
+                currentPath === item.href ? 'text-emerald-600 border-b-2 border-emerald-600' : ''
+              ]}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Language Selector -->
+      <LanguagePicker currentLocal={currentLocale} />
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="md:hidden rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        aria-label="Open main menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+      >
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <ul class="space-y-1 px-2">
+        {navigation.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100 transition-colors',
+                currentPath === item.href ? 'bg-emerald-50 text-emerald-600' : 'text-gray-700'
+              ]}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <!-- Mobile Language Selector -->
+      <div class="mt-4 px-2">
+        <select
+          class="w-full bg-gray-100 text-gray-700 text-sm font-medium rounded-lg px-4 py-2 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          aria-label="Select language"
+        >
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+    document.addEventListener('click', (event) => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuButton = event.target.closest('button[aria-controls="mobile-menu"]');
+      
+      if (mobileMenu && !menuButton && !mobileMenu.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
