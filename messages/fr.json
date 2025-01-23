@@ -1,8 +1,10 @@
 {
     "$schema": "https://inlang.com/schema/inlang-message-format",
     "siteName": "Recettes Astro Gastro",
+    "chooseRecipe": "Choisissez une recette",
+    "chooseRecipeCategory": "Choisissez une recette de {category}",
     "home": "Accueil",
-    "snacks": "Snacks",
+    "snacks": "Collations",
     "dinner": "Dîner",
     "desserts": "Desserts",
     "header": "Choisissez une recette",

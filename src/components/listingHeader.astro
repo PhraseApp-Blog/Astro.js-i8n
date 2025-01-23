@@ -1,22 +1,21 @@
 ---
 import * as m from "../paraglide/messages.js";
 
+const { category = "" } = Astro.props;
 
-const getTranslatedCategory = (category: string): string | undefined => {
-  return m[category]?.(); // Dynamically resolve translations
-};
+console.log('Debug:');
+console.log('Category:', category);
+console.log('Category translation:', m[category]());
+console.log('chooseRecipeCategory result:', m.chooseRecipeCategory({ category: m[category]() }));
+console.log('Current language:', Astro.currentLocale);
 
-
-
-interface Props {
-  category?: string;
-}
-
-const { category = '' } = Astro.props as Props;
+const translatedTitle = category 
+ ? m.chooseRecipeCategory({ category: m[category]().toLowerCase() })
+ : m.chooseRecipe();
 ---
 
 <div class="bg-gray-50">
-    <h1 class="text-3xl font-bold text-gray-900 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-3 text-center">
-      {category ? `Choose a ${getTranslatedCategory(category) || category} recipe` : 'Choose a recipe'}
-    </h1>
-  </div>
+ <h1 class="text-3xl font-bold text-gray-900 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-3 text-center">
+   {translatedTitle}
+ </h1>
+</div>

@@ -1,0 +1,31 @@
+---
+import { getRelativeLocaleUrlList } from 'astro:i18n'; // Fetches all localized paths based on your Astro i18n configuration
+
+import BaseLayout from '../../../layouts/base.astro';
+import RecipeGrid from '../../../components/recipeGrid.astro';
+import ListingHeader from '../../../components/listingHeader.astro';
+
+// Generate static paths for all locales explicitly
+export async function getStaticPaths() {
+  // Use Astro's i18n utility to get a list of locale-specific paths
+  // This will return an array like: ['/en', '/es', '/fr']
+  const paths = getRelativeLocaleUrlList();
+
+  // Transform the paths into the format required by Astro
+  return paths.map((url) => {
+    // Extract the locale from the path. This assumes every locale has a prefix.
+    const locale = url.split('/')[1]; // Extracts 'en', 'es', 'fr', etc.
+
+    // Return an object with the locale as a route parameter for Astro to generate the page
+    return { params: { locale } };
+  });
+}
+
+const currentLocale = Astro.currentLocale; // Get the current locale (e.g., 'en', 'es', 'fr')
+
+---
+
+<BaseLayout currentLocale={currentLocale}>
+    <ListingHeader category="desserts" />
+    <RecipeGrid currentLocale={currentLocale} category="Dessert" />
+</BaseLayout>
