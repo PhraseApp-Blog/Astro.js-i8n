@@ -1,3 +1,16 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format"
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "siteName": "Astro Gastro Recipes",
+    "chooseRecipe": "Choose a recipe",
+    "chooseRecipeCategory": "Choose a {category} recipe",
+    "home": "Home",
+    "snacks": "Snacks",
+    "dinner": "Dinner",
+    "desserts": "Desserts",
+    "header": "Choose a recipe",
+    "prep": "Prep",
+    "cook": "Cook",
+    "difficulty": "Difficulty",
+    "ingredients": "Ingredients",
+    "viewRecipe": "View recipe"
 }

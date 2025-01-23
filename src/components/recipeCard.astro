@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'; // Import the helper function for generating localized URLs
+import * as m from "../paraglide/messages.js";
 
 // Destructure props passed to the RecipeCard component
 const {
@@ -51,13 +52,13 @@ const image = `${slug}.webp`;
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
         </svg>
-        Prep: {prepTime}
+        {m.prep}: {prepTime}
       </span>
       <span class="flex items-center gap-1">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
         </svg>
-        Cook: {cookTime}
+        {m.cook}: {cookTime}
       </span>
     </div>
 
@@ -70,7 +71,7 @@ const image = `${slug}.webp`;
       href={localizedLink}
       class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
     >
-      View Recipe
+      {m.viewRecipe}
     </a>
   </div>
 </article>

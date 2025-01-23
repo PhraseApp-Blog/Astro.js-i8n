@@ -1,13 +1,15 @@
 ---
 import LanguagePicker from "./languagePicker.astro";
+import * as m from "../paraglide/messages.js";
+
 const currentPath = Astro.url.pathname;
 const currentLocale = Astro.currentLocale;
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Snacks', href: '/snacks' },
-  { name: 'Dinner', href: '/dinner' },
-  { name: 'Dessert', href: '/dessert' },
+  { name: m.home, href: '/' },
+  { name: m.snacks, href: '/snacks' },
+  { name: m.dinner, href: '/dinner' },
+  { name: m.desserts, href: '/dessert' },
 ];
 ---
 
@@ -17,7 +19,7 @@ const navigation = [
       <!-- Logo -->
       <a href="/" class="flex items-center">
         <span class="text-xl font-semibold text-gray-900">
-          Astro Gastro Recipes
+          {m.siteName}
         </span>
       </a>
 

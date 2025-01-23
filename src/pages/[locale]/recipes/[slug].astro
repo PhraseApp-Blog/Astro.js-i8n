@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import * as m from "../../../paraglide/messages.js";
+
 import BaseLayout from '../../../layouts/base.astro';
 import RecipeHeader from '../../../components/recipeHeader.astro';
 import IngredientsList from '../../../components/ingredientsList.astro';
@@ -48,7 +50,7 @@ const { Content } = await recipe.render();
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
       <aside class="md:col-span-1 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-          Ingredients
+          {m.ingredients}
         </h2>
         <IngredientsList ingredients={recipe.data.ingredients} />
       </aside>

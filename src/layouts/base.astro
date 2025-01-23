@@ -1,12 +1,15 @@
 ---
 import Header from '../components/header.astro';
+import { languageTag } from "../paraglide/runtime";
+import * as m from "../paraglide/messages.js";
+
 const currentLocale = Astro.currentLocale;
 ---
-<html lang="en">
+<html lang={Astro.currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Astro Gastro!</title>
+    <title>{m.siteName}</title>
   </head>
   <body>
     <Header currentLocal={currentLocale} />

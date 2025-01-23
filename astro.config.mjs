@@ -1,24 +1,20 @@
 import { defineConfig } from "astro/config";
-
 import tailwind from "@astrojs/tailwind";
+import paraglide from '@inlang/paraglide-astro';
 
 export default defineConfig({
   integrations: [
     tailwind(),
     paraglide({
-      // recommended settings
       project: "./project.inlang",
-      outdir: "./src/paraglide", //where your files should be
+      outdir: "./src/paraglide"
     }),
   ],
   i18n: {
-    defaultLocale: "en", // The default language used as a fallback
-    locales: ["en", "es", "fr"], // All supported languages on the site
+    defaultLocale: "en",
+    locales: ["en", "es", "fr"],
     routing: {
-      prefixDefaultLocale: true, // URL structure will be:
-      // / -> English (default)
-      // /es -> Spanish
-      // /fr -> French
+      prefixDefaultLocale: true
     },
   },
 });

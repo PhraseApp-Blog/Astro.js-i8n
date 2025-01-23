@@ -8,3 +8,11 @@ declare module 'astro:content' {
     recipes: z.infer<typeof import('./content/config').collections.recipes.schema>;
   }
 }
+
+declare namespace App {
+  interface Locals {
+    paraglide: {
+      dir: string;
+    };
+  }
+}

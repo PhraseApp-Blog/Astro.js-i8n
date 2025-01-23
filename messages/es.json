@@ -1,3 +1,14 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format"
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "siteName": "Recetas Astro Gastro",
+    "home": "Inicio",
+    "snacks": "Aperitivos",
+    "dinner": "Cena",
+    "desserts": "Postres",
+    "header": "Elige una receta",
+    "prep": "Preparación",
+    "cook": "Cocinar",
+    "difficulty": "Dificultad",
+    "ingredients": "Ingredientes",
+    "viewRecipe": "Ver receta"
 }
