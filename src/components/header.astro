@@ -6,10 +6,10 @@ const currentPath = Astro.url.pathname;
 const currentLocale = Astro.currentLocale;
 
 const navigation = [
-  { name: m.home, href: '/' },
-  { name: m.snacks, href: '/snacks' },
-  { name: m.dinner, href: '/dinner' },
-  { name: m.desserts, href: '/dessert' },
+  { name: m.home, href: `/${currentLocale}` },
+  { name: m.snacks, href: `/${currentLocale}/snacks` },
+  { name: m.dinner, href: `/${currentLocale}/dinner` },
+  { name: m.desserts, href: `/${currentLocale}/dessert` },
 ];
 ---
 
@@ -17,7 +17,7 @@ const navigation = [
   <nav class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
     <div class="flex h-16 justify-between items-center">
       <!-- Logo -->
-      <a href="/" class="flex items-center">
+      <a href={`/${currentLocale}`} class="flex items-center">
         <span class="text-xl font-semibold text-gray-900">
           {m.siteName}
         </span>
