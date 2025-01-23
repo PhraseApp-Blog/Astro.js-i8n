@@ -3,6 +3,7 @@ import Header from '../components/header.astro';
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages.js";
 
+import Footer from '../components/footer.astro';
 const currentLocale = Astro.currentLocale;
 ---
 <html lang={Astro.currentLocale}>
@@ -15,5 +16,6 @@ const currentLocale = Astro.currentLocale;
     <Header currentLocal={currentLocale} />
     
     <slot />
+    <Footer />
   </body>
 </html>
