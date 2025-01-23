@@ -1,11 +1,13 @@
 ---
+import * as m from "../paraglide/messages.js";
+
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-white mt-auto border-t border-gray-200">
  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pb-4">
    <div class="flex justify-center py-6">
-     <span class="text-sm text-gray-500">© {currentYear} <a href="https://phrase.com/" target="_blank">Phrase</a>. All rights reserved.</span>
+     <span class="text-sm text-gray-500">© {currentYear} <a href="https://phrase.com/" target="_blank">Phrase</a>. {m.allRights}.</span>
    </div>
  </div>
 </footer>
