@@ -1,5 +1,6 @@
 ---
 import Header from '../components/header.astro';
+import Footer from '../components/footer.astro';
 const currentLocale = Astro.currentLocale;
 ---
 <html lang="en">
@@ -12,5 +13,6 @@ const currentLocale = Astro.currentLocale;
     <Header currentLocal={currentLocale} />
     
     <slot />
+    <Footer />
   </body>
 </html>
