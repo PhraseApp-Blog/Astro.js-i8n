@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/base.astro';
+
+const locale = Astro.currentLocale;;
+if (Astro.url.pathname === '/') {
+   return Astro.redirect(`/${locale}`);
+}
 ---
 
 <BaseLayout>
