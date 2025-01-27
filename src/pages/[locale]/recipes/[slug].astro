@@ -4,38 +4,44 @@ import BaseLayout from '../../../layouts/base.astro';
 import RecipeHeader from '../../../components/recipeHeader.astro';
 import IngredientsList from '../../../components/ingredientsList.astro';
 
-// This page will handle URLs like:
-// /en/recipes/apple-crumble
-// /es/recipes/crumble-de-manzana
-// /fr/recipes/crumble-aux-pommes
-export const prerender = true;
+export const prerender = true; // Build pages statically for all supported locales.
+
 export async function getStaticPaths() {
-  // Get all recipes across all languages
+  // Fetch all recipes, including localized versions, from the content collection.
   const allRecipes = await getCollection('recipes');
 
-  // For each recipe, create a route with the correct locale
+  // Create a route for each recipe in every language.
   return allRecipes.map((recipe) => {
-    // Get locale from the recipe's ID (e.g., "en/apple-crumble.md" -> "en")
+    // Extract the locale (e.g., "en", "es", "fr") from the recipe ID.
+    // Recipe IDs are structured with the locale as the first part of the path, 
+    // like "en/apple-crumble" or "fr/tarte-aux-pommes". By splitting the ID, 
+    // we can identify the language of each recipe. This step is crucial because 
+    // it allows us to match recipes to the correct locale and ensure users only see 
+    // content in their selected language.
     const locale = recipe.id.split('/')[0];
-    
+
     return {
       params: {
-        locale,
-        // Remove the locale prefix from the slug
+        locale, // Pass the locale to the route for proper localization.
+        // Clean up the recipe slug by removing the locale prefix.
         slug: recipe.slug.replace(`${locale}/`, '')
       },
-      props: { recipe }
+      props: { recipe } // Pass the recipe data to the page to render it.
     };
   });
 }
 
+// Get the localized recipe data and the current locale for this page.
 const { recipe } = Astro.props;
-const currentLocale = Astro.currentLocale;
+const currentLocale = Astro.currentLocale; // Use Astro to get the current locale.
+
+// Render the content body of the recipe markdown file.
 const { Content } = await recipe.render();
 ---
 
 <BaseLayout currentLocale={currentLocale}>
   <article class="max-w-5xl mx-auto px-4 py-12">
+    <!-- Render the recipe header with localized details like name, description, and timings. -->
     <RecipeHeader 
       name={recipe.data.name}
       description={recipe.data.description}
@@ -44,16 +50,18 @@ const { Content } = await recipe.render();
       complexity={recipe.data.complexity}
     />
 
-    <!-- Two column layout for ingredients and instructions -->
+    <!-- Set up a two-column layout: ingredients on one side, instructions on the other. -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
       <aside class="md:col-span-1 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
           Ingredients
         </h2>
+        <!-- Use the localized ingredients list in the IngredientsList component. -->
         <IngredientsList ingredients={recipe.data.ingredients} />
       </aside>
 
       <section class="md:col-span-2 prose prose-emerald dark:prose-invert max-w-none leading-relaxed">
+        <!-- Render the localized recipe instructions from the markdown content. -->
         <Content />
       </section>
     </div>

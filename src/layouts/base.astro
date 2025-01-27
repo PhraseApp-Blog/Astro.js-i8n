@@ -1,18 +1,25 @@
 ---
 import Header from '../components/header.astro';
 import Footer from '../components/footer.astro';
-const currentLocale = Astro.currentLocale;
+
+// Get the current locale from the page calling this layout.
+// This will help us dynamically adjust content or links based on the user's language.
+const currentLocale = Astro.props.currentLocale;
 ---
-<html lang="en">
+<html lang={currentLocale}> <!-- Dynamically set the language attribute for the HTML element based on the current locale. -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Astro Gastro!</title>
+    <title>Astro Gastro!</title> <!-- Localizing the title could be a good future enhancement. -->
   </head>
   <body>
-    <Header currentLocal={currentLocale} />
+    <!-- Pass the current locale to the Header component so it can adjust content or links accordingly. -->
+    <Header currentLocale={currentLocale} />
     
+    <!-- Render the content specific to the current page. -->
     <slot />
+    
+    <!-- Include a shared footer, which we can localize later. -->
     <Footer />
   </body>
 </html>
